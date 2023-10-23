@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 import { Button } from "@/components/ui/button";
 
-export const NavBar = () => {
+export const Navbar = () => {
     const scrolled = useScrollTop();
     return (
         <div className={cn(
