@@ -5,10 +5,12 @@ import { useScrollTop } from "@/hooks/use-scroll-top";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 import { Button } from "@/components/ui/button";
+
 import { useConvexAuth } from "convex/react";
+import { SignInButton } from "@clerk/clerk-react";
 
 export const Navbar = () => {
-    const {} = useConvexAuth()
+    const { isAuthenticated, isLoading } = useConvexAuth();
     const scrolled = useScrollTop();
     return (
         <div className={cn(
@@ -17,8 +19,20 @@ export const Navbar = () => {
         )}>
             <Logo />
             <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
+                {isLoading && (
+                    <p> Loading...</p>
+                )}
+                {!isAuthenticated && !isLoading && (
+                    <>
+                        <SignInButton mode="modal">
+                            <Button variant="ghost" size="sm"> Login </Button>
+                        </SignInButton>
+                        <SignInButton mode="modal">
+                            <Button size="sm"> Get Jotion Free </Button>
+                        </SignInButton>
+                    </>
+                )}
                 <ModeToggle></ModeToggle>
-                <Button> Login </Button>
             </div>
         </div>
     )
